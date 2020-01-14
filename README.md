@@ -6,6 +6,10 @@ time complexity.
 ### Linked Lists
 ### Trees, Tries, & Graphs
 ### Stacks & Queues
+```shell script
+./gradlew test --tests io.wgj.ctci.StackTest
+```
+
 ### Heaps
 ### Vectors / ArraryLists
 ### Hash Tables
