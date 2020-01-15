@@ -4,7 +4,7 @@ public class Stack {
     int[] stack;
     int position;
 
-    public Stack(){
+    public Stack() {
         stack = new int[10];
         position = 0;
     }
@@ -14,7 +14,7 @@ public class Stack {
         position++;
     }
 
-    public int pop(){
+    public int pop() {
         position--;
         return stack[position];
     }
