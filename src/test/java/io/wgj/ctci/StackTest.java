@@ -44,7 +44,6 @@ public class StackTest {
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void testStackUnderFlow() {
-        Stack s = new Stack();
-        s.pop();
+        new Stack().pop();
     }
 }
