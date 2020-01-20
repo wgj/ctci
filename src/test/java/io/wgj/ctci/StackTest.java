@@ -63,7 +63,6 @@ public class StackTest {
         s.push(3);
         int newCapacity = s.capacity();
         assertTrue(startingCapacity < newCapacity);
-
     }
 
     @Test
@@ -96,27 +95,37 @@ public class StackTest {
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void testStackUnderFlow() {
-        new Stack().pop();
+        new Stack<Integer>().pop();
     }
 
     @Test
-    public void TestPeek() {
+    public void testPeek() {
         Stack<Integer> s = new Stack<>();
         s.push(0);
         assertEquals(0, (int) s.peek());
     }
 
     @Test
-    public void TestSize() {
+    public void testSize() {
         Stack<Integer> s = new Stack<>();
         s.push(0);
         assertEquals(1, s.size());
     }
 
     @Test
-    public void TestSizeEmptyStack() {
+    public void testSizeEmptyStack() {
         Stack<Integer> s = new Stack<>();
         assertEquals(0, s.size());
     }
 
+    @Test
+    public void testContentsAfterGrowth() {
+        Stack<Integer> s = new Stack<>(2);
+        s.push(0);
+        s.push(1);
+        s.push(2);
+        assertEquals(2, (int) s.pop());
+        assertEquals(1, (int) s.pop());
+        assertEquals(0, (int) s.pop());
+    }
 }
