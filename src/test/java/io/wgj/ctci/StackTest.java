@@ -40,6 +40,7 @@ public class StackTest {
         s.push(4);
         assertEquals(4, (int) s.pop());
         assertEquals(1, (int) s.pop());
+        assertEquals(0, s.size());
     }
 
     @Test
