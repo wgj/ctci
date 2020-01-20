@@ -58,40 +58,44 @@ public class StackTest {
     @Test
     public void testGrowth() {
         Stack<Integer> s = new Stack<>(1);
-        int startingCapacity = s.capacity();
+        assertEquals(1, s.capacity());
         s.push(1);
         s.push(2);
         s.push(3);
-        int newCapacity = s.capacity();
-        assertTrue(startingCapacity < newCapacity);
+        assertEquals(4, s.capacity());
     }
 
     @Test
-    public void testGrowthWithLeftOver() {
-        int cap = 257; // 257 << 2 is 1028, and trigger a "left over".
+    public void testDynamicGrowth() {
+        int cap = 2;
         Stack<Integer> s = new Stack<>(cap);
         assertEquals(cap, s.capacity());
         for (int i = 0; i < cap + 1; i++) {
             s.push(0);
         }
-        // Our new capacity will use what's left over from s.grow().
-        assertEquals(s.maxSize(), s.capacity());
+        assertEquals(cap * 2, s.capacity());
     }
 
     @Test
-    public void testMaxArraySize() {
-        Stack<Integer> s = new Stack<>(1024); // Stack.MAX_ARRAY_SIZE
-        for (int i = 0; i < s.maxSize(); i++) {
-            s.push(0);
-        }
-        thrown.expect(UnsupportedOperationException.class);
+    public void testCapacity() {
+        Stack<Integer> s = new Stack<>(10000);
+        assertEquals(10000, s.capacity());
+    }
+
+    @Test
+    public void testCapacityGrowth() {
+        Stack<Integer> s = new Stack<>(2);
+        assertEquals(2, s.capacity());
         s.push(0);
-    }
-
-    @Test
-    public void testTooLargeStartingArray() {
-        Stack<Integer> s = new Stack<>(2048);
-        assertEquals(1024, s.maxSize());
+        assertEquals(2, s.capacity());
+        s.push(0);
+        s.push(0);
+        assertEquals(4, s.capacity());
+        s.pop();
+        assertEquals(4, s.capacity());
+        s.pop();
+        s.pop();
+        assertEquals(4, s.capacity());
     }
 
     @Test(expected = ArrayIndexOutOfBoundsException.class)
@@ -102,20 +106,64 @@ public class StackTest {
     @Test
     public void testPeek() {
         Stack<Integer> s = new Stack<>();
-        s.push(0);
-        assertEquals(0, (int) s.peek());
+        s.push(1);
+        assertEquals(1, (int) s.peek());
+        s.push(2);
+        assertEquals(2, (int) s.peek());
+        s.push(3);
+        assertEquals(3, (int) s.peek());
+        s.pop();
+        assertEquals(2, (int) s.peek());
+        s.pop();
+        assertEquals(1, (int) s.peek());
     }
 
     @Test
     public void testSize() {
         Stack<Integer> s = new Stack<>();
+        assertEquals(0, s.size());
+        s.push(1);
+        assertEquals(1, s.size());
+        s.push(2);
+        assertEquals(2, s.size());
+        s.push(3);
+        assertEquals(3, s.size());
+        s.pop();
+        assertEquals(2, s.size());
+        s.pop();
+        assertEquals(1, s.size());
+        s.pop();
+        assertEquals(0, s.size());
+    }
+
+    @Test
+    public void testSizeIntermixed() {
+        Stack<Integer> s = new Stack<>(2);
+        assertEquals(0, s.size());
         s.push(0);
         assertEquals(1, s.size());
+        s.push(0);
+        s.push(0);
+        assertEquals(3, s.size());
+        s.pop();
+        s.push(0);
+        assertEquals(3, s.size());
+        s.pop();
+        s.pop();
+        s.pop();
+        assertEquals(0, s.size());
     }
 
     @Test
     public void testSizeEmptyStack() {
         Stack<Integer> s = new Stack<>();
+        assertEquals(0, s.size());
+        s.push(0);
+        s.push(0);
+        s.push(0);
+        s.pop();
+        s.pop();
+        s.pop();
         assertEquals(0, s.size());
     }
 

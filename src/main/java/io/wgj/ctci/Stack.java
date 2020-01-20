@@ -1,5 +1,7 @@
 package io.wgj.ctci;
 
+import static java.util.Arrays.copyOf;
+
 /**
  * Stack is a stack data structure backed by a dynamic array. Stack can be
  * initialized with a starting array size. It's written to develop familiarity
@@ -10,8 +12,7 @@ package io.wgj.ctci;
  * amount of elements are added.
  */
 public class Stack<E> {
-    static final int MAX_ARRAY_SIZE = 1024;
-    static final int DEFAULT_CAPACITY = 10;
+    static final int DEFAULT_CAPACITY = 2;
     Object[] stack;
     int capacity;
     int size;
@@ -22,9 +23,6 @@ public class Stack<E> {
 
     public Stack(int capacity) {
         stack = new Object[capacity];
-        if (capacity > MAX_ARRAY_SIZE) {
-            capacity = MAX_ARRAY_SIZE;
-        }
         this.capacity = capacity;
         size = 0;
     }
@@ -46,19 +44,7 @@ public class Stack<E> {
 
     private void grow() {
         int newCap = capacity * 2;
-        if (newCap > MAX_ARRAY_SIZE) {
-            int leftOver = MAX_ARRAY_SIZE - capacity;
-            // There's enough space to grow, but not by `<<2`.
-            if (leftOver > 0) {
-                newCap = MAX_ARRAY_SIZE;
-            } else {
-                throw new UnsupportedOperationException();
-            }
-        }
-        Object[] newStack = new Object[newCap];
-        for (int i = 0; i < size; i++) {
-            newStack[i] = stack[i];
-        }
+        Object[] newStack = copyOf(stack, newCap);
         capacity = newCap;
         stack = newStack;
     }
@@ -75,9 +61,5 @@ public class Stack<E> {
 
     public int capacity() {
         return capacity;
-    }
-
-    public int maxSize() {
-        return MAX_ARRAY_SIZE;
     }
 }
