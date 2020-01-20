@@ -45,7 +45,7 @@ public class Stack<E> {
     }
 
     private void grow() {
-        int newCap = capacity << 2;
+        int newCap = capacity * 2;
         if (newCap > MAX_ARRAY_SIZE) {
             int leftOver = MAX_ARRAY_SIZE - capacity;
             // There's enough space to grow, but not by `<<2`.
