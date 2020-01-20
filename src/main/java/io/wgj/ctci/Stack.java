@@ -48,7 +48,7 @@ public class Stack<E> {
         int newCap = capacity << 2;
         if (newCap > MAX_ARRAY_SIZE) {
             int leftOver = MAX_ARRAY_SIZE - capacity;
-            // Squeeze out the remaining space we'd lose.
+            // There's enough space to grow, but not by `<<2`.
             if (leftOver > 0) {
                 newCap = MAX_ARRAY_SIZE;
             } else {
@@ -56,6 +56,9 @@ public class Stack<E> {
             }
         }
         Object[] newStack = new Object[newCap];
+        for (int i = 0; i < size; i++) {
+            newStack[i] = stack[i];
+        }
         capacity = newCap;
         stack = newStack;
     }
