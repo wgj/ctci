@@ -13,65 +13,65 @@ public class Stack<E> {
     static final int MAX_ARRAY_SIZE = 1024;
     static final int DEFAULT_CAPACITY = 10;
     Object[] stack;
+    int capacity;
     int size;
-    int position;
 
     public Stack() {
         this(DEFAULT_CAPACITY);
     }
 
-    public Stack(int size) {
-        stack = new Object[size];
-        if (size > MAX_ARRAY_SIZE) {
-            size = MAX_ARRAY_SIZE;
+    public Stack(int capacity) {
+        stack = new Object[capacity];
+        if (capacity > MAX_ARRAY_SIZE) {
+            capacity = MAX_ARRAY_SIZE;
         }
-        this.size = size;
-        position = 0;
+        this.capacity = capacity;
+        size = 0;
     }
 
     public void push(E e) {
-        if (size == position) {
+        if (capacity == size) {
             this.grow();
         }
-        stack[position] = e;
-        position++;
+        stack[size] = e;
+        size++;
     }
 
     public E pop() {
-        position--;
+        size--;
         @SuppressWarnings("unchecked")
-        E e = (E) stack[position];
+        E e = (E) stack[size];
         return e;
     }
 
     private void grow() {
-        int newSize = size << 2;
-        if (newSize > MAX_ARRAY_SIZE) {
-            int leftOver = MAX_ARRAY_SIZE - size;
+        int newCap = capacity << 2;
+        if (newCap > MAX_ARRAY_SIZE) {
+            int leftOver = MAX_ARRAY_SIZE - capacity;
             // Squeeze out the remaining space we'd lose.
             if (leftOver > 0) {
-                newSize = leftOver + size;
+                newCap = MAX_ARRAY_SIZE;
             } else {
                 throw new UnsupportedOperationException();
             }
         }
-        Object[] newStack = new Object[newSize];
-        size = newSize;
+        Object[] newStack = new Object[newCap];
+        capacity = newCap;
         stack = newStack;
     }
 
     public E peek() {
         @SuppressWarnings("unchecked")
-        E e = (E) stack[position - 1];
+        E e = (E) stack[size - 1];
         return e;
     }
 
     public int size() {
-        return position;
+        return size;
     }
 
     public int capacity() {
-        return size;
+        return capacity;
     }
 
     public int maxSize() {
