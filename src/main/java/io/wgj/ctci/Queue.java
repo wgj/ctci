@@ -1,13 +1,12 @@
 package io.wgj.ctci;
 
 public class Queue<E> {
-
   Object[] queue;
   int head;
   int tail;
   int length;
   int capacity;
-  final static int STARTING_CAPACITY = 1;
+  static final int STARTING_CAPACITY = 10;
 
   public Queue() {
     queue = new Object[STARTING_CAPACITY];
@@ -18,23 +17,32 @@ public class Queue<E> {
   }
 
   public void add(E e) {
-    queue[tail] = e;
-    tail++;
-    length++;
     if (length == capacity) {
       grow();
     }
+    queue[tail] = e;
+    tail++;
+    length++;
   }
 
   public E remove() {
+    if (length == 0) {
+      throw new ArrayIndexOutOfBoundsException();
+    }
+    @SuppressWarnings("unchecked")
     E e = (E) queue[head];
-
+    head++;
+    length--;
     return e;
   }
 
   public E peek() {
-    Object o = queue[head];
-    return (E) o;
+    if (length == 0) {
+      return null;
+    }
+    @SuppressWarnings("unchecked")
+    E e = (E) queue[head];
+    return e;
   }
 
   private void grow() {
@@ -54,5 +62,9 @@ public class Queue<E> {
     capacity = newCap;
     head = 0;
     tail = length;
+  }
+
+  public int getLength() {
+    return length;
   }
 }
