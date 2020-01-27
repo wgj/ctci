@@ -5,7 +5,7 @@ public class Queue<E> {
   Object[] queue;
   int head;
   int tail;
-  static final int STARTING_CAPACITY = 1;
+  static final int STARTING_CAPACITY = 2;
   int size;
 
   public Queue() {
@@ -17,12 +17,13 @@ public class Queue<E> {
 
   public void add(E e) {
     // TODO(wgj): Handle wrap around.
+    // TODO(wgj): Check if there's space before inserting.
+    queue[tail] = e;
+    size++;
+    tail = nextTail();
     if (getSize() == queue.length) {
       grow();
     }
-    queue[nextTail()] = e;
-    size++;
-    tail = nextTail();
   }
 
   public E remove() {
@@ -48,15 +49,17 @@ public class Queue<E> {
   private void grow() {
     int newLength = queue.length * 2;
     Object[] newQueue = new Object[newLength];
-    // Loop from head to cap
-    int copyIndex = 0;
-    for (int i = head; i < queue.length - 1; i++) {
-      newQueue[i] = queue[i];
-      copyIndex++;
-    }
-    // Loop from 0 to tail
-    for (int i = 0; i < tail; i++) {
-      newQueue[copyIndex + i] = queue[i];
+    int newQueueIndex = 0;
+    int queueIndex = head;
+    while (queueIndex != tail) {
+      newQueue[newQueueIndex] = queue[queueIndex];
+      // Wrap around because we reached the end of the array, but not the end of the queue.
+      if (queueIndex == queue.length - 1) {
+        queueIndex = 0;
+      } else {
+        queueIndex++;
+      }
+      newQueueIndex++;
     }
     queue = newQueue;
     head = 0;
@@ -72,13 +75,15 @@ public class Queue<E> {
   }
 
   private int nextTail() {
-    // Wrap around since we're at the end of `queue`.
+    // Wrap around if we're at the end of `queue` and there's still space.
     if (tail > 0 && tail == queue.length - 1) {
       return 0;
-    } else if (head == tail) {
+      // Leave `tail` alone if it's an empty queue.
+    } else if (head == tail && getSize() == 0) {
       return tail;
+      // Increment `tail` normally.
     } else {
-      return tail++;
+      return tail + 1;
     }
   }
 }
