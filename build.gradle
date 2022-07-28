@@ -27,4 +27,11 @@ dependencies {
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }
+compileJava {
+    options.compilerArgs << "-Xlint:unchecked"
+}
+
+compileTestJava {
+    options.compilerArgs << "-Xlint:unchecked"
+}
 
