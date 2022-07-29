@@ -55,7 +55,7 @@ public class StackTest {
         assertEquals(1, (int) s.pop());
     }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    @Test(expected = IndexOutOfBoundsException.class)
     public void testStackUnderFlow() {
         new Stack<Integer>().pop();
     }
