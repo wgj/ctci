@@ -103,6 +103,7 @@ public class ArrayListTest {
     }
     assertEquals(4, al.size());
   }
+
   @Test
   public void arrayList_isEmpty() {
     ArrayList<Integer> al = new ArrayList<>();
@@ -112,6 +113,7 @@ public class ArrayListTest {
     al.remove(0);
     assertTrue(al.isEmpty());
   }
+
   @Test
   public void arrayList_set() {
     ArrayList<Integer> al = new ArrayList<>();
@@ -120,6 +122,7 @@ public class ArrayListTest {
     al.set(0, 42);
     assertEquals((Integer) 42, al.get(0));
   }
+
   @Test
   public void arrayList_Iterator() {
     ArrayList<Integer> al = new ArrayList<>();
