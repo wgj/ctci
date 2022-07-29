@@ -13,26 +13,7 @@ public class ArrayListTest {
   public final ExpectedException exception = ExpectedException.none();
 
   @Test
-  public void arrayList_new() {
-    ArrayList<Integer> al = new ArrayList<>();
-  }
-
-  @Test
-  public void arrayList_add() {
-    ArrayList<Integer> al = new ArrayList<>();
-    al.add(1);
-  }
-
-  @Test
-  public void arrayList_size() {
-    ArrayList<Integer> al = new ArrayList<>();
-    assertEquals(0, al.size());
-    al.add(1);
-    assertEquals(1, al.size());
-  }
-
-  @Test
-  public void arrayList_grow() {
+  public void arrayList() {
     ArrayList<Integer> al = new ArrayList<>();
     assertEquals(0, al.size());
     Integer[] ints = {1, 2, 3, 4, 5};
@@ -40,13 +21,8 @@ public class ArrayListTest {
       al.add(i);
     }
     assertEquals(5, al.size());
-  }
-
-  @Test
-  public void arrayList_get() {
-    ArrayList<Integer> al = new ArrayList<>();
-    al.add(1);
     assertEquals((Integer) 1, al.get(0));
+    assertEquals((Integer) 5, al.get(al.size()-1));
   }
 
   @Test
@@ -56,52 +32,51 @@ public class ArrayListTest {
     al.get(0);
   }
 
+  private boolean compareArrayToArrayList(Integer[] array, ArrayList<Integer> list) {
+    if (array.length != list.size()) {
+      return false;
+    }
+    for (int i = 0; i < array.length; i++ ) {
+      if (array[i] != list.get(i)) {
+        return false;
+      }
+    }
+    return true;
+  }
   @Test
   public void arrayList_remove_front() {
     ArrayList<Integer> al = new ArrayList<>();
-    Integer[] add_ints = {1, 2, 3, 4, 5};
-    for (Integer i : add_ints) {
+    Integer[] ints = {1, 2, 3, 4, 5};
+    for (Integer i : ints) {
       al.add(i);
     }
-    assertEquals(add_ints[0], al.remove(0));
-
-    Integer[] get_ints = {2, 3, 4, 5};
-    for (int i = 0; i <= get_ints.length - 1; i++) {
-      assertEquals(get_ints[i], al.get(i));
-    }
-    assertEquals(4, al.size());
+    assertEquals(ints[0], al.remove(0));
+    Integer[] ints_with_front_removed = {2, 3, 4, 5};
+    compareArrayToArrayList(ints_with_front_removed, al);
   }
 
   @Test
   public void arrayList_remove_middle() {
     ArrayList<Integer> al = new ArrayList<>();
-    Integer[] add_ints = {1, 2, 3, 4, 5};
-    for (Integer i : add_ints) {
+    Integer[] ints = {1, 2, 3, 4, 5};
+    for (Integer i : ints) {
       al.add(i);
     }
-    assertEquals(add_ints[2], al.remove(2));
-
-    Integer[] get_ints = {1, 2, 4, 5};
-    for (int i = 0; i <= get_ints.length - 1; i++) {
-      assertEquals(get_ints[i], al.get(i));
-    }
-    assertEquals(4, al.size());
+    assertEquals(ints[2], al.remove(2));
+    Integer[] ints_with_middle_removed = {1, 2, 4, 5};
+    compareArrayToArrayList(ints_with_middle_removed, al);
   }
 
   @Test
   public void arrayList_remove_back() {
     ArrayList<Integer> al = new ArrayList<>();
-    Integer[] add_ints = {1, 2, 3, 4, 5};
-    for (Integer i : add_ints) {
+    Integer[] ints = {1, 2, 3, 4, 5};
+    for (Integer i : ints) {
       al.add(i);
     }
-    assertEquals(add_ints[4], al.remove(4));
-
-    Integer[] get_ints = {1, 2, 3, 4};
-    for (int i = 0; i <= get_ints.length - 1; i++) {
-      assertEquals(get_ints[i], al.get(i));
-    }
-    assertEquals(4, al.size());
+    assertEquals(ints[4], al.remove(4));
+    Integer[] ints_with_back_removed = {1, 2, 3, 4};
+    compareArrayToArrayList(ints_with_back_removed, al);
   }
 
   @Test
