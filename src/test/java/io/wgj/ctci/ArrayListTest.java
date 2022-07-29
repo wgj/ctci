@@ -50,7 +50,7 @@ public class ArrayListTest {
     }
     assertEquals(ints[0], list.remove(0));
     Integer[] ints_with_front_removed = {2, 3, 4, 5};
-    compareArrayToArrayList(ints_with_front_removed, al);
+    assertTrue(compareArrayToArrayList(ints_with_front_removed, list));
   }
 
   @Test
@@ -62,7 +62,7 @@ public class ArrayListTest {
     }
     assertEquals(ints[2], list.remove(2));
     Integer[] ints_with_middle_removed = {1, 2, 4, 5};
-    compareArrayToArrayList(ints_with_middle_removed, al);
+    assertTrue(compareArrayToArrayList(ints_with_middle_removed, list));
   }
 
   @Test
@@ -74,7 +74,7 @@ public class ArrayListTest {
     }
     assertEquals(ints[4], list.remove(4));
     Integer[] ints_with_back_removed = {1, 2, 3, 4};
-    compareArrayToArrayList(ints_with_back_removed, al);
+    assertTrue(compareArrayToArrayList(ints_with_back_removed, list));
   }
 
   @Test
