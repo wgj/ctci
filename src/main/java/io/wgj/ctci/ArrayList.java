@@ -27,11 +27,7 @@ public class ArrayList <E> implements Iterable<E> {
 
   private void grow() {
     var newElements = new Object[elements.length * 2];
-    var i = 0;
-    for (Object e : elements) {
-      newElements[i] = e;
-      i++;
-    }
+    System.arraycopy(elements, 0, newElements, 0, elements.length);
     elements = newElements;
   }
 
