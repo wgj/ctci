@@ -43,10 +43,13 @@ public class ArrayList <E> implements Iterable<E> {
   public E remove(int index) {
     rangeCheck(index);
     E removedObject = elementData(index);
-    // elements after the removed index shift to the left.
-    for (int i = index; i < size-1; i++) {
-      elements[i] = elements[i+1];
+    if (elements.length > 1) {
+      // elements after the removed index shift to the left.
+      for (int i = index; i < size-1; i++) {
+        elements[i] = elements[i+1];
+      }
     }
+    elements[size-1] = null;
     size--;
     return removedObject;
   }
