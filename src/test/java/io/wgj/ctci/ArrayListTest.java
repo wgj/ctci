@@ -35,7 +35,7 @@ public class ArrayListTest {
       return false;
     }
     for (int i = 0; i < array.length; i++ ) {
-      if (array[i] != list.get(i)) {
+      if (! array[i].equals(list.get(i))) {
         return false;
       }
     }
