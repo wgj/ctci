@@ -3,7 +3,7 @@ package io.wgj.ctci;
 import java.util.Iterator;
 
 public class ArrayList <E> implements Iterable<E> {
-  transient Object[] elements;
+  Object[] elements;
   static final int STARTING_CAPACITY = 1;
   private int size;
 
