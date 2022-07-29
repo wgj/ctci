@@ -6,12 +6,10 @@ public class ArrayList <E> implements Iterable<E> {
   transient Object[] elements;
   static final int STARTING_CAPACITY = 1;
   private int size;
-  private int capacity;
 
   public ArrayList() {
     elements = new Object[STARTING_CAPACITY];
     size = 0;
-    capacity = STARTING_CAPACITY;
   }
 
   public int size() {
@@ -19,7 +17,7 @@ public class ArrayList <E> implements Iterable<E> {
   }
 
   public boolean add(E e) {
-    if (size >= capacity) {
+    if (size >= elements.length) {
       grow();
     }
     elements[size] = e;
@@ -28,14 +26,12 @@ public class ArrayList <E> implements Iterable<E> {
   }
 
   private void grow() {
-    var newCapacity = capacity*2;
-    var newElements = new Object[newCapacity];
+    var newElements = new Object[elements.length * 2];
     var i = 0;
     for (Object e : elements) {
       newElements[i] = e;
       i++;
     }
-    capacity = newCapacity;
     elements = newElements;
   }
 
@@ -56,10 +52,7 @@ public class ArrayList <E> implements Iterable<E> {
   }
 
   public boolean isEmpty() {
-    if (size != 0) {
-      return false;
-    }
-    return true;
+    return size == 0;
   }
 
   public E set(int index, E e) {
@@ -94,7 +87,7 @@ public class ArrayList <E> implements Iterable<E> {
   }
 
    private void rangeCheck(int index) {
-    if (index >= size) {
+    if (index >= size || index < 0) {
       throw new IndexOutOfBoundsException();
     }
   }
