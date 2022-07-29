@@ -2,18 +2,18 @@ package io.wgj.ctci;
 
 public class Queue<E> {
 
-  ArrayList<E> al;
+  ArrayList<E> list;
   int frontIndex;
   int backIndex;
 
   public Queue() {
-    al = new ArrayList<>();
+    list = new ArrayList<>();
     frontIndex = 0;
     backIndex = 0;
   }
 
   public void enqueue(E e) {
-    al.add(e);
+    list.add(e);
     backIndex++;
   }
 
@@ -27,7 +27,7 @@ public class Queue<E> {
     if (frontIndex == backIndex) {
       return null;
     }
-    return al.get(frontIndex);
+    return list.get(frontIndex);
   }
 
   public boolean isEmpty() {

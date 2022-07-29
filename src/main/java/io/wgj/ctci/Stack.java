@@ -6,26 +6,26 @@ package io.wgj.ctci;
  *
  */
 public class Stack<E> {
-    ArrayList<E> al;
+    ArrayList<E> list;
 
     public Stack() {
-        al = new ArrayList<>();
+        list =  new ArrayList<>();
     }
 
     public void push(E e) {
-        al.add(e);
+        list.add(e);
     }
 
     public E pop() {
         // This shouldn't been costly, since we're always removing from the top of the stack.
-        return al.remove(al.size()-1);
+        return list.remove(list.size()-1);
     }
 
     public E peek() {
-        return al.get(al.size()-1);
+        return list.get(list.size()-1);
     }
 
     public int size() {
-        return al.size();
+        return list.size();
     }
 }
