@@ -13,41 +13,35 @@ public class QueueTest {
   public final ExpectedException exception = ExpectedException.none();
 
   @Test
-  public void queue_new() {
-    Queue<Integer> q = new Queue<>();
-  }
-
-  @Test
   public void add_newQueue() {
     Queue<Integer> q = new Queue<>();
-    q.add(1);
+    q.enqueue(1);
   }
 
   @Test
   public void remove_newQueue() {
     Queue<Integer> q = new Queue<>();
-    exception.expect(IndexOutOfBoundsException.class);
-    q.remove();
+    q.dequeue();
   }
 
   @Test
-  public void peek_newQueue() {
+  public void front_newQueue() {
     Queue<Integer> q = new Queue<>();
-    assertNull(q.peek());
+    assertNull(q.front());
   }
 
   @Test
-  public void peek_emptyQueue() {
+  public void front_emptyQueue() {
     Queue<Integer> q = new Queue<>();
-    q.add(1);
-    q.remove();
-    assertNull(q.peek());
+    q.enqueue(1);
+    q.dequeue();
+    assertNull(q.front());
   }
 
   @Test
-  public void peek_notEmptyQueue() {
+  public void front_notEmptyQueue() {
     Queue<Integer> q = new Queue<>();
-    q.add(1);
-    assertEquals(1, (int) q.peek());
+    q.enqueue(1);
+    assertEquals(1, (int) q.front());
   }
 }
